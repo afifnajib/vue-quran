@@ -6,8 +6,10 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView
+      // name: 'home',
+      // component: HomeView
+      name: 'E - Quran',
+      component: () => import('../views/E-Quran.vue')
     },
     {
       path: '/about',

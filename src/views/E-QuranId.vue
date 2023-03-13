@@ -13,7 +13,6 @@
                     {{ quran.name }}
                 </div>
             </div>
-            <!-- <p class="font-arab text-4xl">{{ test }}</p> -->
             <div id="container-1" class="grid grid-cols-1 gap-4 px-8 py-8">
                 <div class="text-4xl text-right font-arab text-slate-700 sticky" v-for="surah in quran.ayahs" :key="surah.number">
                     <h2 :id="'text-arab-'+ surah.number"><span class="leading-loose">{{ surah.text }} </span><span class="bg-color-3 p-2 text-xl rounded-lg text-color-2">{{ surah.numLatin }}</span></h2>
@@ -118,7 +117,7 @@ export default {
                 text.style.content = ''
               }, audio.duration)
             }
-          }          
+          }
         }
         setTimeout(() => {
             textAwal.style.color = 'blue'
