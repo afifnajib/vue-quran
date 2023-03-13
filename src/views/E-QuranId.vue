@@ -13,16 +13,27 @@
                     {{ quran.name }}
                 </div>
             </div>
-            <div id="container-1" class="grid grid-cols-1 gap-4 px-8 py-8">
+            <div id="container-1" class="grid grid-cols-1 gap-4 md:px-8 md:pt-8 md:pb-16 smc:pb-28 smc:px-4 smc:pt-4">
                 <div class="text-4xl text-right font-arab text-slate-700 sticky" v-for="surah in quran.ayahs" :key="surah.number">
                     <h2 :id="'text-arab-'+ surah.number"><span class="leading-loose">{{ surah.text }} </span><span class="bg-color-3 p-2 text-xl rounded-lg text-color-2">{{ surah.numLatin }}</span></h2>
                     <h3 class="text-left text-2xl m-5">{{ surah.latin }}</h3>
                 </div>
             </div>
-            <audio v-if="numberAudio" id="sound" preload="metadata" controls class="fixed bottom-0 w-3/4 bg-gray-200 p-4 rounded-lg">
+            <audio v-if="numberAudio" id="sound" preload="metadata" class="w-full lg:w-3/4 fixed md:bottom-0 smc:bottom-20" controls>
+              <source id="source-sound" :src="'https://cdn.islamic.network/quran/audio/128/ar.alafasy/'+ numberAudio + '.mp3'" type="audio/mpeg">
+              <div class="flex items-center justify-center h-full absolute inset-0">
+                <button class="text-white rounded-full bg-blue-500 p-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3l14 9-14 9V3z" />
+                  </svg>
+                </button>
+              </div>
+            </audio>
+
+            <!-- <audio v-if="numberAudio" id="sound" preload="metadata" controls class="fixed smc:p-4 smc:bottom-20 md:bottom-0 m-auto w-full bg-gray-200 p-4 rounded-lg">
               <source id="source-sound" :src="'https://cdn.islamic.network/quran/audio/128/ar.alafasy/'+ numberAudio + '.mp3'" type="audio/mpeg">
               Your browser does not support the audio element. 
-            </audio>
+            </audio> -->
         </div>
     <bottom-nav class="md:hidden sm:block" />
 </template>
@@ -72,6 +83,7 @@ export default {
       label: null,
       currentAudio: null,
       numberAudio: null,
+      numberAudioFirst: null,
       removeBismillah: null,
     }
   },
@@ -98,10 +110,16 @@ export default {
       Object.assign(this.quran.ayahs[index], { latin: data.text, numLatin: N.EntoAr() })
     })
     this.numberAudio = this.quran.ayahs[0].number
+    this.numberAudioFirst = this.quran.ayahs[0].number
+    // console.log(this.numberAudio)
     setTimeout(() => {
       let audio = document.querySelector('#sound')
-      let textAwal = document.querySelector('#text-arab-' + this.numberAudio)
+      let textAwal = document.querySelector('#text-arab-' + this.numberAudioFirst)
         audio.onended = (e) => {
+          setTimeout(() => {
+            textAwal.style.color = '#3F72AF'
+            textAwal.style.content = ''
+          }, audio.duration)
           let num = this.numberAudio+=1
           // let text = document.querySelector('#text-arab-' + num)
           if(num <= this.quran.ayahs[this.quran.ayahs.length - 1].number){
@@ -113,17 +131,12 @@ export default {
             audio.onloadedmetadata = function() {
               // console.log(audio.duration)
             setTimeout(() => {
-                text.style.color = 'blue'
+                text.style.color = '#3F72AF'
                 text.style.content = ''
               }, audio.duration)
             }
           }
         }
-        setTimeout(() => {
-            textAwal.style.color = 'blue'
-            textAwal.style.content = ''
-            // textAwal.style.zIndex = '5rem'
-          }, audio.duration)
     }, 500)
   },
   methods: {
