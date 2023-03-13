@@ -1,7 +1,7 @@
 <template>
     <top-nav/>
     <side-nav class="smc:hidden md:block" />
-        <div class="p-4 md:ml-52 md:mr-20 xlc:ml-72 xlc:mr-40">
+        <div class="md:ml-52 md:mr-20 xlc:ml-72 xlc:mr-40">
             <div class="grid grid-cols-3 gap-4 bg-color-2 rounded shadow px-8 py-8">
                 <div class="sm:text-lg xlc:text-2xl text-slate-700">
                     {{ quran.number }}. {{ quran.englishName }}
@@ -19,10 +19,10 @@
                       <span class="leading-loose smc:mr-10 smc:ml-4 sm:ml-0 md:mr-6 md:ml-4">{{ surah.text }} </span>
                       <span class="border-solid border-2 border-color-3 p-2 text-xl rounded-lg font-bold text-color-4">{{ surah.numLatin }}</span>
                     </h2>
-                    <h3 class="text-left leading-none smc:text-xl md:text-2xl mt-3">
+                    <h3 class="ml-4 text-left leading-none smc:text-xl md:text-2xl mt-3">
                       <span>{{ surah.latin }}</span>
                     </h3>
-                    <button class="smc:relative smc:right-0 md:top-[1.3rem] md:right-[-1.5rem]" @click="audioPlayNumber(surah.number)">
+                    <button class="smc:relative smc:right-0 md:absolute md:top-[1.3rem] md:right-[-1.5rem]" @click="audioPlayNumber(surah.number)">
                       <svg fill="#112D4E" height="30px" width="30px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 60 60" xml:space="preserve" stroke="#112D4E">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -36,7 +36,7 @@
                     </button>
                 </div>
             </div>
-            <audio v-if="numberAudio" id="sound" preload="metadata" class="smc:w-[95%] md:w-[60%] lg:w-3/4 xlc:w-[55%] xl:w-3/4 fixed md:bottom-0 smc:bottom-20" autobuffer controls>
+            <audio v-if="numberAudio" id="sound" preload="metadata" class="smc:w-full md:w-[60%] lg:w-3/4 xlc:w-[55%] xl:w-3/4 fixed md:bottom-0 smc:bottom-20" autobuffer controls>
               <source id="source-sound" :src="'https://cdn.islamic.network/quran/audio/128/ar.alafasy/'+ numberAudio + '.mp3'" type="audio/mpeg">
               <div class="flex items-center justify-center h-full absolute inset-0">
                 <button class="text-white rounded-full bg-blue-500 p-4">
