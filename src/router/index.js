@@ -16,7 +16,24 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue')
-    }
+    },
+    {
+      path: '/e-quran',
+      name: 'Empty Content E-Quran Container',
+      // component: () => import('../views/Empty.vue'),
+      children: [
+        {
+          path: '',
+          name: 'E - Quran',
+          component: () => import('../views/E-Quran.vue')
+        },
+        {
+          path: '/e-quran/:number',
+          name: 'Detail Surah',
+          component: () => import('../views/E-QuranId.vue')
+        },
+      ]
+    }, 
   ]
 })
 
