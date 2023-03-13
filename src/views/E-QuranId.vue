@@ -1,6 +1,6 @@
 <template>
     <top-nav/>
-    <side-nav class="sm:hidden md:block" />
+    <side-nav class="smc:hidden md:block" />
         <div class="p-4 md:ml-52 md:mr-20 xlc:ml-72 xlc:mr-40">
             <div class="grid grid-cols-3 gap-4 bg-color-2 rounded shadow px-8 py-8">
                 <div class="sm:text-lg xlc:text-2xl text-slate-700">
