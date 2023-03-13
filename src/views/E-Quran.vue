@@ -1,6 +1,6 @@
 <template>
 <top-nav />
-<side-nav class="sm:hidden md:block" />
+<side-nav class="smc:hidden md:block" />
 <div class="p-4 md:ml-32">
    <div class="w-full p-5 rounded overflow-hidden">
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
