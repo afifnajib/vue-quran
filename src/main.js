@@ -9,7 +9,7 @@ const app = createApp(App)
 
 const axiosInstance = axios.create({
   // withCredentials: true,
-  baseURL: 'http://api.alquran.cloud/v1'
+  baseURL: 'https://api.alquran.cloud/v1'
 })
 
 
