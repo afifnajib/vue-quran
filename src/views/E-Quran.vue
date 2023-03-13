@@ -42,7 +42,7 @@ export default {
    TopNav, 
    SideNav
    },
-  name: "e-quran",
+//   name: "e-quran",
   data() {
     return {
       quran: [],
