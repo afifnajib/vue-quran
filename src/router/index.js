@@ -18,22 +18,27 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     },
     {
-      path: '/e-quran',
-      name: 'Empty Content E-Quran Container',
+      path: '/surah',
+      name: 'Content Surah',
       // component: () => import('../views/Empty.vue'),
       children: [
         {
           path: '',
-          name: 'E - Quran',
-          component: () => import('../views/E-Quran.vue')
+          name: 'Surah',
+          component: () => import('../views/surah/Index.vue')
         },
         {
-          path: '/e-quran/:number',
+          path: '/surah/:id',
           name: 'Detail Surah',
-          component: () => import('../views/E-QuranId.vue')
+          component: () => import('../views/surah/Detail.vue')
         },
       ]
-    }, 
+    },
+    {
+      path: '/*',
+      name: 'Empty Content',
+      component: () => import('../views/Empty.vue')
+    }
   ]
 })
 

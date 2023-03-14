@@ -16,13 +16,13 @@
             <div id="container-1" class="grid grid-cols-1 gap-4 md:px-8 md:pt-8 md:pb-16 smc:pb-36 smc:px-4 smc:pt-4 divide-y divide-dashed">
                 <div class="text-4xl text-right font-arab text-slate-700 sticky" v-for="surah in quran.ayahs" :key="surah.number">
                     <h2 :id="'text-arab-'+ surah.number">
-                      <span class="leading-loose smc:mr-10 smc:ml-4 sm:ml-0 md:mr-6 md:ml-4">{{ surah.text }} </span>
+                      <span class="leading-loose smc:mr-0 smc:ml-4 sm:ml-0 md:mr-6 md:ml-4">{{ surah.text }} </span>
                       <span class="border-solid border-2 border-color-3 p-2 text-xl rounded-lg font-bold text-color-4">{{ surah.numLatin }}</span>
                     </h2>
                     <h3 class="ml-4 text-left leading-none smc:text-xl md:text-2xl mt-3">
                       <span>{{ surah.latin }}</span>
                     </h3>
-                    <button class="smc:relative smc:right-0 md:absolute md:top-[1.3rem] md:right-[-1.5rem]" @click="audioPlayNumber(surah.number)">
+                    <button class="pr-4" @click="audioPlayNumber(surah.number)">
                       <svg fill="#112D4E" height="30px" width="30px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 60 60" xml:space="preserve" stroke="#112D4E">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
