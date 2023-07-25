@@ -1,5 +1,5 @@
 <template>
-  <div class="" v-if="!isLoading">
+  <div v-if="!isLoading">
     <div class="pt-6">
       <nav aria-label="Breadcrumb">
         <ol
@@ -29,7 +29,7 @@
               href="#"
               aria-current="page"
               class="font-medium text-gray-500 hover:text-gray-600"
-              >{{ surahInfo && surahInfo.name_complex }}</a
+              >{{ surahInfo.name_complex }}</a
             >
           </li>
         </ol>
@@ -41,10 +41,10 @@
       >
         <div class="lg:col-span-2 lg:border-gray-200 lg:pr-8">
           <h1
-            class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl font-arab-bold"
+            class="antialiased text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl font-arab-bold"
           >
-            {{ surahInfo && surahInfo.name_complex }} -
-            {{ surahInfo && surahInfo.name_arabic }}
+            {{ surahInfo.name_complex }} -
+            {{ surahInfo.name_arabic }}
           </h1>
         </div>
 
@@ -57,19 +57,21 @@
 
             <div class="space-y-6">
               <p
-                class="text-base text-gray-900 text-justify"
-                v-html="setDetailSurah && setDetailSurah.short_text"
+                class="text-md text-gray-900 text-justify font-custom"
+                v-html="setDetailSurah.short_text"
               ></p>
             </div>
           </div>
 
           <div class="mt-10">
-            <h2 class="text-md font-medium text-gray-900">Details</h2>
+            <h2 class="text-md font-medium font-arab-bold text-gray-900">
+              Details
+            </h2>
 
             <div class="mt-4 space-y-6">
               <p
-                class="text-md text-gray-600 text-justify"
-                v-html="setDetailSurah && setDetailSurah.text"
+                class="text-md text-gray-600 text-justify font-custom"
+                v-html="setDetailSurah.text"
               ></p>
             </div>
             <nav
@@ -77,7 +79,7 @@
             >
               <div class="m-3">
                 <button
-                  type="submit"
+                  @click="LinktoRead(setDetailSurah.chapter_id)"
                   class="flex w-full items-center justify-center rounded-md border border-transparent bg-custom-color-1 px-8 py-3 text-base font-medium text-white hover:bg-custom-color-2 focus:outline-none focus:ring-2 focus:ring-custom-color-3 focus:ring-offset-2"
                 >
                   Baca Sekarang
@@ -89,43 +91,24 @@
       </div>
     </div>
   </div>
-  <div v-else>loading...</div>
+  <template v-else>
+    <LoadingVue />
+  </template>
 </template>
-<style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic&display=swap");
-.font-arabic {
-  font-family: "Noto Naskh Arabic", serif;
-}
-@font-face {
-  font-family: "Kitab";
-  src: local("Kitab"),
-    url(../../assets/font/Kitab-Regular.ttf) format("truetype");
-}
-.font-arab {
-  font-family: "kitab";
-}
-
-@font-face {
-  font-family: "Kitab Bold";
-  src: local("Kitab Bold"),
-    url(../../assets/font/Kitab-Bold.ttf) format("truetype");
-}
-.font-arab-bold {
-  font-family: "kitab bold";
-}
-</style>
 <script>
-import CryptoJS from "crypto-js";
+import LoadingVue from "../../components/Loading.vue";
 
 export default {
   props: {},
   name: "Surah Detail",
-  components: {},
+  components: {
+    LoadingVue,
+  },
   data() {
     return {
       paramsId: this.$route.params.id,
-      setDetailSurah: null,
-      surahInfo: null,
+      setDetailSurah: [],
+      surahInfo: [],
       isLoading: true,
       responseData: "",
     };
@@ -140,38 +123,25 @@ export default {
         .get("/chapters/" + this.paramsId + "?language=id")
         .then((resp) => {
           this.surahInfo = resp.data.chapter;
-          this.isLoading = false;
         })
         .catch((e) => {
           console.log(e);
         });
     },
     async getDetailSurah() {
-      this.isLoading;
       this.getSurahId();
-      try {
-        const response = await this.$axios.get(
-          "/chapters/" + this.paramsId + "/info?language=id"
-        );
-        const decryptedData = CryptoJS.AES.decrypt(
-          response.data,
-          "ini-di-enkripsi"
-        ).toString(CryptoJS.enc.Utf8);
-        this.responseData = decryptedData;
-        console.log(this.responseData);
-        this.isLoading = false;
-      } catch (error) {
-        console.error(error);
-      }
-      //   await this.$axios
-      //     .get("/chapters/" + this.paramsId + "/info?language=id")
-      //     .then((resp) => {
-      //       this.setDetailSurah = resp.data.chapter_info;
-      //       this.isLoading = false;
-      //     })
-      //     .catch((e) => {
-      //       console.log(e);
-      //     });
+      await this.$axios
+        .get("/chapters/" + this.paramsId + "/info?language=id")
+        .then((resp) => {
+          this.setDetailSurah = resp.data.chapter_info;
+          this.isLoading = false;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
+    LinktoRead(id) {
+      this.$router.push("/surah/read/" + id);
     },
   },
 };

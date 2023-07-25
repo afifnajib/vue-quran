@@ -38,4 +38,27 @@
   .border-custom-4 {
     border-color: #c5dff8 !important;
   }
+
+  .font-custom {
+    font-family: "Times New Roman", Times, serif;
+  }
+  @import url("https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic&display=swap");
+  .font-arabic {
+    font-family: "Noto Naskh Arabic", serif;
+  }
+  @font-face {
+    font-family: "Kitab";
+    src: local("Kitab"), url(./font/Kitab-Regular.ttf) format("truetype");
+  }
+  .font-arab {
+    font-family: "kitab";
+  }
+
+  @font-face {
+    font-family: "Kitab Bold";
+    src: local("Kitab Bold"), url(./font/Kitab-Bold.ttf) format("truetype");
+  }
+  .font-arab-bold {
+    font-family: "kitab bold";
+  }
 }

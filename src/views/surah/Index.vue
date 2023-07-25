@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main v-if="!isLoading">
     <top-nav />
     <side-nav class="smc:hidden md:block" />
     <div class="p-4 md:ml-64 lg:mr-32">
@@ -62,34 +62,15 @@
     </div>
     <bottom-nav class="md:hidden sm:block" />
   </main>
+  <template v-else>
+    <LoadingVue />
+  </template>
 </template>
-<style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic&display=swap");
-.font-arabic {
-  font-family: "Noto Naskh Arabic", serif;
-}
-@font-face {
-  font-family: "Kitab";
-  src: local("Kitab"),
-    url(../../assets/font/Kitab-Regular.ttf) format("truetype");
-}
-.font-arab {
-  font-family: "kitab";
-}
-
-@font-face {
-  font-family: "Kitab Bold";
-  src: local("Kitab Bold"),
-    url(../../assets/font/Kitab-Bold.ttf) format("truetype");
-}
-.font-arab-bold {
-  font-family: "kitab bold";
-}
-</style>
 <script>
 import BottomNav from "../../components/BottomNav.vue";
 import TopNav from "../../components/TopNav.vue";
 import SideNav from "../../components/SideNav.vue";
+import LoadingVue from "../../components/Loading.vue";
 export default {
   props: {},
   name: "Surah",
@@ -97,10 +78,12 @@ export default {
     BottomNav,
     TopNav,
     SideNav,
+    LoadingVue,
   },
   data() {
     return {
       chapters: [],
+      isLoading: true,
     };
   },
   mounted() {
@@ -108,6 +91,7 @@ export default {
   },
   methods: {
     async getSurah() {
+      this.isLoading;
       await this.$axios
         .get("/chapters?language=id")
         .then((resp) => {
@@ -122,6 +106,7 @@ export default {
             var S = this.chapters[index].id;
             var N = S.toString();
             Object.assign(this.chapters[index], { number_latin: N.EntoAr() });
+            this.isLoading = false;
           });
         })
         .catch((e) => {
